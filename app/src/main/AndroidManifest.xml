@@ -25,7 +25,7 @@
             android:label="Register Visitor" />
         <activity
             android:name=".SignOutActivity"
-            android:label="Sign Out"
+            android:label="@string/title_activity_sign_out"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
