@@ -10,9 +10,10 @@
         android:layout_width="368dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="47dp"
-        android:text="Host Log In"
+        android:text="Log In"
         android:textAlignment="center"
         android:textSize="40dp"
+        android:layout_gravity="center"
        />
 
     <LinearLayout

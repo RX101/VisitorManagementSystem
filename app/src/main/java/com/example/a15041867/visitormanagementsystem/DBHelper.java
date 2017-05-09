@@ -37,6 +37,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String USER_COLUMN_USERNAME = "UserName";
     private static final String USER_COLUMN_PHONE_NUMBER = " User Phone Number";
     private static final String USER_COLUMN_EMAIL = "User Email";
+    private static final String USER_COLUMN_POSITION = "User Position";
+    private static final String USER_COLUMN_Host_Unit = "Host Unit";
 
 
     public DBHelper(Context context) {
@@ -55,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String createTableSqlUser = "CREATE TABLE " + TABLE_USER +  "("
                 + USER_COLUMN_User_NRIC + " TEXT," + USER_COLUMN_USERNAME + " TEXT,"
-                + USER_COLUMN_PHONE_NUMBER + " INTEGER," + USER_COLUMN_EMAIL + " TEXT)";
+                + USER_COLUMN_PHONE_NUMBER + " INTEGER," + USER_COLUMN_EMAIL + " TEXT" + USER_COLUMN_EMAIL + " TEXT)";
         db.execSQL(createTableSqlVisitor);
         db.execSQL(createTableSqlVisitInfo);
         db.execSQL(createTableSqlUser);
