@@ -19,7 +19,8 @@
         <activity android:name=".ManagerActivity" />
         <activity android:name=".VisitorInfoActivity" />
         <activity android:name=".evacuationActivity" />
-        <activity android:name=".manageActivity"></activity>
+        <activity android:name=".manageActivity" />
+        <activity android:name=".summaryActivity"></activity>
     </application>
 
 </manifest>
