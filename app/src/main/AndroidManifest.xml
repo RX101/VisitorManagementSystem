@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.Pre" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -23,10 +23,22 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Register Visitor" />
+
+        <activity
+            android:name=".CancelPreRegister"
+            android:label="Cancel Pre-Register"
+            />
+
+        <activity
+            android:name=".PreRegisterActivity"
+            android:label="Pre-Register"
+            />
+
         <activity
             android:name=".SignOutActivity"
             android:label="@string/title_activity_sign_out"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
     </application>
 
 </manifest>
