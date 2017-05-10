@@ -5,13 +5,13 @@
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:label="Log In"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".MainActivity"
+            android:label="Log In">
             <intent-filter>
-                <action android:name="android.intent.action.Pre" />
+                <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -23,22 +23,20 @@
         <activity
             android:name=".RegisterActivity"
             android:label="Register Visitor" />
-
-        <activity
-            android:name=".CancelPreRegister"
-            android:label="Cancel Pre-Register"
-            />
-
-        <activity
-            android:name=".PreRegisterActivity"
-            android:label="Pre-Register"
-            />
-
         <activity
             android:name=".SignOutActivity"
             android:label="@string/title_activity_sign_out"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".CancelPreRegister"
+            android:label="Sign Out"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
+        <activity
+            android:name=".PreRegisterActivity"
+            android:label="Pre Register"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>
