@@ -57,10 +57,10 @@
             android:id="@+id/editTextPASSWORD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="50dp"
             android:layout_weight="0.94"
             android:ems="10"
-            android:inputType="textPassword"
-            android:layout_marginBottom="50dp"/>
+            android:inputType="textPassword" />
 
     </LinearLayout>
 
