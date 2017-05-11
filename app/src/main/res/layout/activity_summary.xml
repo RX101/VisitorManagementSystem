@@ -50,14 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.10"
-            android:text="RadioButton" />
+            android:text="Number of visitors based on time span" />
 
-        <RadioButton
-            android:id="@+id/radioButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.10"
-            android:text="RadioButton" />
     </RadioGroup>
 
 </LinearLayout>
