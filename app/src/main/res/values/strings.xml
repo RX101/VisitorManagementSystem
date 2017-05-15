@@ -3,4 +3,5 @@
     <string name="title_activity_sign_in">SignInActivity</string>
     <string name="title_activity_sign_out">SignOutActivity</string>
     <string name="cancel_pre_register">CancelPreRegister</string>
+    <string name="forgetpassword">ForgetPassword</string>
 </resources>

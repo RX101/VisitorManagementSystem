@@ -8,19 +8,51 @@ import android.widget.Button;
 
 public class ManagerActivity extends AppCompatActivity {
 
-    Button btnManageUser;
+    Button btnInfo, btnSummary, btnEvacuation, btnManage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manager);
 
-        btnManageUser = (Button)findViewById(R.id.btnManage);
+        btnInfo = (Button)findViewById(R.id.btnInfo);
+        btnSummary = (Button)findViewById(R.id.btnSummary);
+        btnEvacuation = (Button)findViewById(R.id.btnEvacuation);
+        btnManage = (Button)findViewById(R.id.btnManage);
 
-        btnManageUser.setOnClickListener(new View.OnClickListener() {
+        btnInfo.setOnClickListener(new View.OnClickListener(){
             @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ManagerActivity.this, addActivity.class));
+            public void onClick(View v){
+
+                Intent i = new Intent(ManagerActivity.this, userInfoActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnSummary.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                Intent i = new Intent(ManagerActivity.this, summaryActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnEvacuation.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                Intent i = new Intent(ManagerActivity.this, evacuationActivity.class);
+                startActivity(i);
+            }
+        });
+
+        btnManage.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+
+                Intent i = new Intent(ManagerActivity.this, manageActivity.class);
+                startActivity(i);
             }
         });
     }
