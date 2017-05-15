@@ -56,13 +56,12 @@
         android:id="@+id/editTextRegisterEmail"/>
 
     <Button
-        android:layout_marginTop="20dp"
+        android:id="@+id/buttonRegister"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="REGISTER"
-        android:id="@+id/buttonRegister"/>
-
+        android:layout_marginTop="20dp"
+        android:text="REGISTER" />
 
 
 </LinearLayout>
