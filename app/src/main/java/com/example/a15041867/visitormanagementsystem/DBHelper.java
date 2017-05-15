@@ -1,6 +1,8 @@
 package com.example.a15041867.visitormanagementsystem;
 
+import android.content.ContentValues;
 import android.content.Context;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
@@ -18,27 +20,28 @@ public class DBHelper extends SQLiteOpenHelper {
     // Table Visitor
     private static final String DATABASE_NAME = "VisitorInfoManagement.db";
     private static final String TABLE_VISITOR = "Visitor";
-    private static final String VISITOR_COLUMN_NRIC = "Visitor NRIC";
-    private static final String VISITOR_COLUMN_HOST_NRIC = "Host NRIC";
+    private static final String VISITOR_COLUMN_NRIC = "Visitor_NRIC";
+    private static final String VISITOR_COLUMN_HOST_NRIC = "Host_NRIC";
     private static final String VISITOR_COLUMN_NAME = "Name";
-    private static final String VISITOR_COLUMN_PHONE_NUMBER = "Phone Number";
+    private static final String VISITOR_COLUMN_PHONE_NUMBER = "Phone_Number";
     private static final String VISITOR_COLUMN_EMAIL = "Email";
 
     //Table Visit Info
-    private static final String TABLE_VISIT_INFO = "Visit Info";
+    private static final String TABLE_VISIT_INFO = "Visit_Info";
     private static final String VISIT_INFO_COLUMN_ID = "ID";
-    private static final String VISIT_INFO_COLUMN_VISITOR_NRIC = "Visitor NRIC";
-    private static final String VISIT_INFO_COLUMN_DATETIME_IN = "Datetime In";
-    private static final String VISIT_INFO_COLUMN_DATETIME_OUT = "Datetime Out";
+    private static final String VISIT_INFO_COLUMN_VISITOR_NRIC = "Visitor_NRIC";
+    private static final String VISIT_INFO_COLUMN_DATETIME_IN = "Datetime_In";
+    private static final String VISIT_INFO_COLUMN_DATETIME_OUT = "Datetime_Out";
 
     //Table User
     private static final String TABLE_USER = "User";
-    private static final String USER_COLUMN_User_NRIC = "User NRIC";
+    private static final String USER_COLUMN_User_NRIC = "User_NRIC";
     private static final String USER_COLUMN_USERNAME = "UserName";
-    private static final String USER_COLUMN_PHONE_NUMBER = " User Phone Number";
-    private static final String USER_COLUMN_EMAIL = "User Email";
-    private static final String USER_COLUMN_POSITION = "User Position";
-    private static final String USER_COLUMN_Host_Unit = "Host Unit";
+    private static final String USER_COLUMN_PASSWORD = "User_Password";
+    private static final String USER_COLUMN_PHONE_NUMBER = " User_Phone_Number";
+    private static final String USER_COLUMN_EMAIL = "User_Email";
+    private static final String USER_COLUMN_POSITION = "User_Position";
+    private static final String USER_COLUMN_Host_Unit = "Host_Unit";
 
 
     public DBHelper(Context context) {
@@ -56,8 +59,8 @@ public class DBHelper extends SQLiteOpenHelper {
                 + VISIT_INFO_COLUMN_DATETIME_IN + " DATETIME," + VISIT_INFO_COLUMN_DATETIME_OUT + " DATETIME)";
 
         String createTableSqlUser = "CREATE TABLE " + TABLE_USER +  "("
-                + USER_COLUMN_User_NRIC + " TEXT," + USER_COLUMN_USERNAME + " TEXT,"
-                + USER_COLUMN_PHONE_NUMBER + " INTEGER," + USER_COLUMN_EMAIL + " TEXT" + USER_COLUMN_EMAIL + " TEXT)";
+                + USER_COLUMN_User_NRIC + " TEXT," + USER_COLUMN_USERNAME + " TEXT," + USER_COLUMN_PASSWORD + " TEXT,"
+                + USER_COLUMN_PHONE_NUMBER + " INTEGER," + USER_COLUMN_EMAIL + " TEXT," + USER_COLUMN_POSITION + " TEXT," + USER_COLUMN_Host_Unit + " TEXT)";
         db.execSQL(createTableSqlVisitor);
         db.execSQL(createTableSqlVisitInfo);
         db.execSQL(createTableSqlUser);
@@ -73,4 +76,92 @@ public class DBHelper extends SQLiteOpenHelper {
         // Create table(s) again
 
     }
+
+    public void insertUser(String userNRIC, String userName,String password, int userPhoneNumber, String userEmail,String userUnitNo, String userPosition) {
+        //TODO insert the data into the database
+        // Get an instance of the database for writing
+        SQLiteDatabase db = this.getWritableDatabase();
+        // We use ContentValues object to store the values for
+        //  the db operation
+        ContentValues values = new ContentValues();
+        values.put(USER_COLUMN_User_NRIC, userNRIC);
+        values.put(USER_COLUMN_USERNAME, userName);
+        values.put(USER_COLUMN_PASSWORD, password);
+        values.put(USER_COLUMN_PHONE_NUMBER, userPhoneNumber);
+        values.put(USER_COLUMN_EMAIL, userEmail);
+        values.put(USER_COLUMN_Host_Unit, userUnitNo);
+        values.put(USER_COLUMN_POSITION, userPosition);
+        // Insert the row into the TABLE_TASK
+        db.insert(TABLE_USER, null, values);
+        // Close the database connection
+        db.close();
+    }
+
+    public void insertManager() {
+        //TODO insert the data into the database
+        // Get an instance of the database for writing
+        SQLiteDatabase db = this.getWritableDatabase();
+        // We use ContentValues object to store the values for
+        //  the db operation
+        ContentValues values = new ContentValues();
+        values.put(USER_COLUMN_User_NRIC, "S12345678Z");
+        values.put(USER_COLUMN_USERNAME, "Manager");
+        values.put(USER_COLUMN_PASSWORD, "manager1234");
+        values.put(USER_COLUMN_PHONE_NUMBER, "83845623");
+        values.put(USER_COLUMN_EMAIL, "manager@gmail.com");
+        values.put(USER_COLUMN_Host_Unit, "NO");
+        values.put(USER_COLUMN_POSITION, "Manager");
+        // Insert the row into the TABLE_TASK
+        db.insert(TABLE_USER, null, values);
+        // Close the database connection
+        db.close();
+    }
+
+
+    public boolean getUser(String NRIC, String password){
+        //HashMap<String, String> user = new HashMap<String, String>();
+        String selectQuery = "select * from  " + TABLE_USER + " where " +
+                USER_COLUMN_User_NRIC + " = " + "'"+NRIC+"'" + " and " + USER_COLUMN_PASSWORD + " = " + "'"+password+"'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+
+            return true;
+        }
+        cursor.close();
+        db.close();
+
+        return false;
+    }
+    public String getUserPosition(String NRIC){
+        //HashMap<String, String> user = new HashMap<String, String>();
+        String selectQuery = "select " +USER_COLUMN_POSITION +" from " + TABLE_USER + " WHERE " + USER_COLUMN_User_NRIC + " = '"+NRIC+"'";
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        // Run the SQL query and get back the Cursor object
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        String position = "";
+        // moveToFirst() moves to first row
+        if (cursor.moveToFirst()) {
+            // Loop while moveToNext() points to next row
+            //  and returns true; moveToNext() returns false
+            //  when no more next row to move to
+            do {
+                // Add the task content to the ArrayList object
+                //  0 in getString(0) return the data in the first
+                //  column in the Cursor object. getString(1)
+                //  return second column data and so on.
+                //  Use getInt(0) if data is an int
+                position = cursor.getString(0);
+            } while (cursor.moveToNext());
+        }
+        // Close connection
+        cursor.close();
+        db.close();
+        return position;
+    }
+
 }

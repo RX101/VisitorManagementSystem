@@ -5,5 +5,5 @@
         android:orderInCategory="100"
         android:text="@string/cancel_pre_register"
         android:title="Cancel Pre-Register"/>
-
+    
 </menu>
