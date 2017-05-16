@@ -25,7 +25,7 @@ public class editDeleteActivity extends AppCompatActivity {
                                     ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-        menu.add(0,0,0,"Add");
+        menu.add(0,0,0,"Edit");
         menu.add(0,1,1,"Delete");
 
     }
