@@ -19,10 +19,10 @@
         <activity android:name=".ManagerActivity" />
         <activity android:name=".VisitorInfoActivity" />
         <activity android:name=".evacuationActivity" />
-        <activity android:name=".manageActivity" />
         <activity android:name=".summaryActivity" />
         <activity android:name=".addActivity" />
-        <activity android:name=".userInfoActivity"></activity>
+        <activity android:name=".userInfoActivity" />
+        <activity android:name=".manageActivity"></activity>
     </application>
 
 </manifest>
