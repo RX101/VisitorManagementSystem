@@ -16,7 +16,7 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
 
     <ListView
-        android:id="@+id/lvInfo"
+        android:id="@+id/lvInfoUsers"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </LinearLayout>
