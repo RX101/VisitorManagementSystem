@@ -30,6 +30,4 @@
         android:text="SIGN OUT"
         android:id="@+id/buttonSignOut"/>
 
-
-
 </LinearLayout>

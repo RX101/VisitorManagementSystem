@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:backgroundTint="?attr/colorControlHighlight"
+        app:backgroundTint="@android:color/darker_gray"
         app:srcCompat="@drawable/scanner" />
 
 </android.support.design.widget.CoordinatorLayout>
