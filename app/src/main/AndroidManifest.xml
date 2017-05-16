@@ -18,26 +18,36 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ManagerActivity"
-            android:label=" Manager Activity"/>
-        <activity android:name=".VisitorInfoActivity"
-            android:label="Visitor Info"/>
-        <activity android:name=".evacuationActivity"
-            android:label="Evacuation Report"/>
-        <activity android:name=".manageActivity"
-            android:label="Manage Activity"/>
-        <activity android:name=".summaryActivity"
-            android:label="Summary Activity"/>
-        <activity android:name=".RegisterActivity"
-            android:label="Register"/>
-        <activity android:name=".PreRegisterActivity"
-            android:label="Pre Register"/>
-        <activity android:name=".addActivity"
-            android:label="Add User"/>
-        <activity android:name=".userInfoActivity"
-            android:label="User Info"/>
-        <activity android:name=".CancelPreRegister"
-            android:label="Cancel Pre-register"/>
+        <activity
+            android:name=".ManagerActivity"
+            android:label=" Manager Activity" />
+        <activity
+            android:name=".VisitorInfoActivity"
+            android:label="Visitor Info" />
+        <activity
+            android:name=".evacuationActivity"
+            android:label="Evacuation Report" />
+        <activity
+            android:name=".manageActivity"
+            android:label="Manage Activity" />
+        <activity
+            android:name=".summaryActivity"
+            android:label="Summary Activity" />
+        <activity
+            android:name=".RegisterActivity"
+            android:label="Register" />
+        <activity
+            android:name=".PreRegisterActivity"
+            android:label="Pre Register" />
+        <activity
+            android:name=".addActivity"
+            android:label="Add User" />
+        <activity
+            android:name=".userInfoActivity"
+            android:label="User Info" />
+        <activity
+            android:name=".CancelPreRegister"
+            android:label="Cancel Pre-register" />
         <activity
             android:name=".SignInActivity"
             android:label="Sign In"
@@ -45,7 +55,8 @@
         <activity
             android:name=".SignOutActivity"
             android:label="Sign Out"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".editDeleteActivity"></activity>
     </application>
 
 </manifest>

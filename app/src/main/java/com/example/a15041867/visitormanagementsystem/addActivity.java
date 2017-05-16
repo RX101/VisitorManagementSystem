@@ -48,7 +48,7 @@ public class addActivity extends AppCompatActivity {
                 Integer n = rand.nextInt(89999999)+ 10000000;
                 String password = n.toString();
 
-                // Create the DBHelper object, passing in the
+                    // Create the DBHelper object, passing in the
                 // activity's Context
                 DBHelper db = new DBHelper(addActivity.this);
                 db.insertUser(userNRIC,userName,password,registerPhoneNumber,userEmail,userUnitNo,selectedPosition);
