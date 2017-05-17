@@ -41,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -56,10 +57,12 @@ public class MainActivity extends AppCompatActivity {
 //                        session.setLoggedin(true);
                         startActivity(new Intent(MainActivity.this, ManagerActivity.class));
                         Toast.makeText(MainActivity.this,position,Toast.LENGTH_LONG).show();
-                    }else{
+                    }else if (position.equals("Security Guard")){
 //                        session.setLoggedin(true);
                         startActivity(new Intent(MainActivity.this, RegisterActivity.class));
                         Toast.makeText(MainActivity.this,position,Toast.LENGTH_LONG).show();
+                    } else{
+                        Toast.makeText(MainActivity.this,"Error",Toast.LENGTH_LONG).show();
                     }
                 }else if(loginNRIC.isEmpty() && loginPassword.isEmpty()){
                     Toast.makeText(MainActivity.this,"Username/password field empty",Toast.LENGTH_SHORT).show();

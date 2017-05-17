@@ -45,6 +45,7 @@ public class addActivity extends AppCompatActivity {
                 RadioButton rb = (RadioButton) findViewById(selectedButtonId);
                 String selectedPosition = rb.getText().toString();
                 Random rand = new Random();
+                //Java random passcode generator
                 Integer n = rand.nextInt(89999999)+ 10000000;
                 String password = n.toString();
 
@@ -54,7 +55,9 @@ public class addActivity extends AppCompatActivity {
                 db.insertUser(userNRIC,userName,password,registerPhoneNumber,userEmail,userUnitNo,selectedPosition);
                 db.close();
                 Toast.makeText(addActivity.this,"User Added Successful",Toast.LENGTH_SHORT).show();
+                //use finish()
                 startActivity(new Intent(addActivity.this,MainActivity.class));
+                //use onResume()
             }
         });
     }
