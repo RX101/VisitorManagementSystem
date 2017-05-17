@@ -28,18 +28,23 @@ public class MainActivity extends AppCompatActivity {
         session = new Session(this);
         db = new DBHelper(MainActivity.this);
 
+        if(db.checkManager() != true){
+            db.insertUser("admin","manager","manager1234",88888888,"manager@gmil.com","NO","Manager");
+        }
+
         //        if(session.loggedin()){
 //            startActivity(new Intent(MainActivity.this,SecondActivity.class));
 //            finish();
 //        }
-        tvInsertManager.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                db.insertManager();
-                tvInsertManager.setVisibility(View.GONE);
 
-            }
-        });
+//        tvInsertManager.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                db.insertManager();
+//                tvInsertManager.setVisibility(View.GONE);
+//
+//            }
+//        });
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {

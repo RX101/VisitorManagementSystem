@@ -97,25 +97,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    public void insertManager() {
-        //TODO insert the data into the database
-        // Get an instance of the database for writing
-        SQLiteDatabase db = this.getWritableDatabase();
-        // We use ContentValues object to store the values for
-        //  the db operation
-        ContentValues values = new ContentValues();
-        values.put(USER_COLUMN_User_NRIC, "S12345678Z");
-        values.put(USER_COLUMN_USERNAME, "Manager");
-        values.put(USER_COLUMN_PASSWORD, "manager1234");
-        values.put(USER_COLUMN_PHONE_NUMBER, "83845623");
-        values.put(USER_COLUMN_EMAIL, "manager@gmail.com");
-        values.put(USER_COLUMN_Host_Unit, "NO");
-        values.put(USER_COLUMN_POSITION, "Manager");
-        // Insert the row into the TABLE_TASK
-        db.insert(TABLE_USER, null, values);
-        // Close the database connection
-        db.close();
-    }
+
 
 
     public boolean getUser(String NRIC, String password){
@@ -136,6 +118,26 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return false;
     }
+
+    public boolean checkManager(){
+        //HashMap<String, String> user = new HashMap<String, String>();
+         String selectQuery ="select * from  " + TABLE_USER + " where " + USER_COLUMN_POSITION + " != " + "Manager";
+
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+        // Move to first row
+        cursor.moveToFirst();
+        if (cursor.getCount() > 0) {
+
+            return true;
+        }
+        cursor.close();
+        db.close();
+
+        return false;
+    }
+
     public String getUserPosition(String NRIC){
         //HashMap<String, String> user = new HashMap<String, String>();
         String selectQuery = "select " +USER_COLUMN_POSITION +" from " + TABLE_USER + " WHERE " + USER_COLUMN_User_NRIC + " = '"+NRIC+"'";
