@@ -121,8 +121,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public boolean checkManager(){
         //HashMap<String, String> user = new HashMap<String, String>();
-         String selectQuery ="select * from  " + TABLE_USER + " where " + USER_COLUMN_POSITION + " != " + "Manager";
-
+         String selectQuery ="select * from  " + TABLE_USER + " where " + USER_COLUMN_POSITION + " = " + "Manager";
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
