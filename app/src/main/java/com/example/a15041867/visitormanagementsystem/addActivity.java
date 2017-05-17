@@ -45,9 +45,16 @@ public class addActivity extends AppCompatActivity {
                 RadioButton rb = (RadioButton) findViewById(selectedButtonId);
                 String selectedPosition = rb.getText().toString();
                 Random rand = new Random();
-                //Java random passcode generator
-                Integer n = rand.nextInt(89999999)+ 10000000;
-                String password = n.toString();
+                //Java random passcode generator alphanumeric
+                int passwordSize = 10;
+                char[] chars = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
+                StringBuilder sb = new StringBuilder();
+                Random random = new Random();
+                for (int i = 0; i < passwordSize; i++) {
+                    char c = chars[random.nextInt(chars.length)];
+                    sb.append(c);
+                }
+                String password = sb.toString();
 
                     // Create the DBHelper object, passing in the
                 // activity's Context
