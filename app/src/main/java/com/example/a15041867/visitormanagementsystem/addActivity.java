@@ -45,7 +45,7 @@ public class addActivity extends AppCompatActivity {
                 RadioButton rb = (RadioButton) findViewById(selectedButtonId);
                 String selectedPosition = rb.getText().toString();
                 Random rand = new Random();
-                //Java random passcode generator
+                //Java random passcode generator alphanumeric
                 int passwordSize = 10;
                 char[] chars = "abcdefghijklmnopqrstuvwxyz0123456789".toCharArray();
                 StringBuilder sb = new StringBuilder();
