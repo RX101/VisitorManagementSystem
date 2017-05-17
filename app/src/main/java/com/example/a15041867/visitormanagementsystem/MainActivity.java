@@ -26,8 +26,10 @@ public class MainActivity extends AppCompatActivity {
         session = new Session(this);
         db = new DBHelper(MainActivity.this);
 
-        if(db.checkManager() != true){
+        if(db.checkUser() != true){
             db.insertUser("admin","manager","manager1234",88888888,"manager@gmil.com","NO","Manager");
+            db.insertUser("host","host","host1234",88888887,"host@gmil.com","#08-110","Host");
+            db.insertUser("security","security","security1234",88888886,"security@gmil.com","NO","Security Staff");
         }
 
         //        if(session.loggedin()){

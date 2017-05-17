@@ -56,7 +56,7 @@ public class addActivity extends AppCompatActivity {
                 db.close();
                 Toast.makeText(addActivity.this,"User Added Successful",Toast.LENGTH_SHORT).show();
                 //use finish()
-                startActivity(new Intent(addActivity.this,MainActivity.class));
+                finish();
                 //use onResume()
             }
         });

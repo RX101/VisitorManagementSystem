@@ -119,7 +119,7 @@ public class DBHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean checkManager(){
+    public boolean checkUser(){
         //HashMap<String, String> user = new HashMap<String, String>();
          String selectQuery ="select * from  " + TABLE_USER + " where " + USER_COLUMN_POSITION + " = " + null;
 
