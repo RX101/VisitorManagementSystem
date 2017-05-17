@@ -14,7 +14,6 @@ public class MainActivity extends AppCompatActivity {
     Button btnLogin;
     EditText etLoginNRIC, etLoginPassword;
     private Session session;
-    TextView tvInsertManager;
     DBHelper db;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
         btnLogin =(Button)findViewById(R.id.buttonLogin);
         etLoginNRIC = (EditText)findViewById(R.id.editTextloginNRIC);
         etLoginPassword = (EditText)findViewById(R.id.editTextloginPassword);
-        tvInsertManager = (TextView)findViewById(R.id.textViewInsertManager);
         session = new Session(this);
         db = new DBHelper(MainActivity.this);
 
@@ -37,14 +35,6 @@ public class MainActivity extends AppCompatActivity {
 //            finish();
 //        }
 
-//        tvInsertManager.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                db.insertManager();
-//                tvInsertManager.setVisibility(View.GONE);
-//
-//            }
-//        });
 
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
