@@ -74,6 +74,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VISIT_INFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         // Create table(s) again
+        onCreate(db);
 
     }
 
@@ -91,6 +92,23 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(USER_COLUMN_EMAIL, userEmail);
         values.put(USER_COLUMN_Host_Unit, userUnitNo);
         values.put(USER_COLUMN_POSITION, userPosition);
+        // Insert the row into the TABLE_TASK
+        db.insert(TABLE_USER, null, values);
+        // Close the database connection
+        db.close();
+    }
+
+    public void insertRegisterVisitor(String registerNRIC, String registerName, int registerHP, String registerEmail) {
+        //TODO insert the data into the database
+        // Get an instance of the database for writing
+        SQLiteDatabase db = this.getWritableDatabase();
+        // We use ContentValues object to store the values for
+        //  the db operation
+        ContentValues values = new ContentValues();
+        values.put(VISITOR_COLUMN_NRIC, registerNRIC);
+        values.put(VISITOR_COLUMN_NAME, registerName);
+        values.put(VISITOR_COLUMN_PHONE_NUMBER, registerHP);
+        values.put(VISITOR_COLUMN_EMAIL, registerEmail);
         // Insert the row into the TABLE_TASK
         db.insert(TABLE_USER, null, values);
         // Close the database connection
