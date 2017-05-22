@@ -30,7 +30,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_VISIT_INFO = "Visit_Info";
     private static final String VISIT_INFO_COLUMN_ID = "ID";
     private static final String VISIT_INFO_COLUMN_VISITOR_NRIC = "Visitor_NRIC";
-    private static final String VISIT_INFO_COLUMN_DATETIME_IN = "Datetime_In";
+    private static final String VISIT_INFO_COLUMN_TIME_IN = "Time_In";
+    private static final String VISIT_INFO_COLUMN_DATE_IN = "Date_In";
     private static final String VISIT_INFO_COLUMN_DATETIME_OUT = "Datetime_Out";
 
     //Table User
@@ -56,7 +57,7 @@ public class DBHelper extends SQLiteOpenHelper {
 
         String createTableSqlVisitInfo = "CREATE TABLE " + TABLE_VISIT_INFO +  "("
                 + VISIT_INFO_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + VISIT_INFO_COLUMN_VISITOR_NRIC + " TEXT,"
-                + VISIT_INFO_COLUMN_DATETIME_IN + " DATETIME," + VISIT_INFO_COLUMN_DATETIME_OUT + " DATETIME)";
+                + VISIT_INFO_COLUMN_DATE_IN + " DATE," + VISIT_INFO_COLUMN_TIME_IN + "TIME," + VISIT_INFO_COLUMN_DATETIME_OUT + " DATETIME)";
 
         String createTableSqlUser = "CREATE TABLE " + TABLE_USER +  "("
                 + USER_COLUMN_User_NRIC + " TEXT," + USER_COLUMN_USERNAME + " TEXT," + USER_COLUMN_PASSWORD + " TEXT,"
@@ -96,7 +97,36 @@ public class DBHelper extends SQLiteOpenHelper {
         // Close the database connection
         db.close();
     }
-
+    public void insertVisitor(String visitorNRIC, String visitorNAME,int visitorNUMBER,String visitorEMAIL) {
+        //TODO insert the data into the database
+        // Get an instance of the database for writing
+        SQLiteDatabase db = this.getWritableDatabase();
+        // We use ContentValues object to store the values for
+        //  the db operation
+        ContentValues values = new ContentValues();
+        values.put(VISITOR_COLUMN_NRIC, visitorNRIC);
+        values.put(VISITOR_COLUMN_NAME, visitorNAME);
+        values.put(VISITOR_COLUMN_PHONE_NUMBER, visitorNUMBER);
+        values.put(VISITOR_COLUMN_EMAIL, visitorEMAIL);
+        // Insert the row into the TABLE_TASK
+        db.insert(TABLE_VISITOR, null, values);
+        // Close the database connection
+        db.close();
+    }
+    public void insertVisitInfo(String visitorNRIC, String datein, String timein){
+        // Get an instance of the database for writing
+        SQLiteDatabase db = this.getWritableDatabase();
+        // We use ContentValues object to store the values for
+        //  the db operation
+        ContentValues values = new ContentValues();
+        values.put(VISIT_INFO_COLUMN_VISITOR_NRIC, visitorNRIC);
+        values.put(VISIT_INFO_COLUMN_DATE_IN, datein);
+        values.put(VISIT_INFO_COLUMN_TIME_IN, timein);
+        // Insert the row into the TABLE_TASK
+        db.insert(TABLE_VISIT_INFO, null, values);
+        // Close the database connection
+        db.close();
+    }
 
 
 

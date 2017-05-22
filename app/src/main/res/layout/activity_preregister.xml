@@ -114,15 +114,18 @@
             android:layout_height="wrap_content"
             android:layout_weight="0.22"
             android:text="Date:"
-            android:layout_marginBottom="20dp" />
+
+            android:layout_marginBottom="5dp" />
 
         <EditText
             android:id="@+id/editTextDate"
-            android:layout_width="wrap_content"
+            android:layout_width="352dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:layout_marginBottom="20dp" />
+            android:editable="false"
+            android:focusable="false"
+            android:inputType="textMultiLine" />
 
     </LinearLayout>
 
@@ -137,15 +140,17 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Time:"
-            android:layout_marginBottom="20dp"/>
+            android:layout_marginBottom="5dp"/>
 
         <EditText
             android:id="@+id/editTextTime"
-            android:layout_width="wrap_content"
+            android:layout_width="351dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
             android:ems="10"
-            android:inputType="textMultiLine"
-            android:layout_marginBottom="20dp" />
+            android:editable="false"
+            android:focusable="false"
+            android:inputType="textMultiLine" />
 
     </LinearLayout>
 

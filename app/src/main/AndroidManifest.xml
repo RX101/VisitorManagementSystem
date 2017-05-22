@@ -49,6 +49,9 @@
             android:name=".CancelPreRegister"
             android:label="Cancel Pre-register" />
         <activity
+            android:name=".hostForgetPassword"
+            android:label="Forget Password" />
+        <activity
             android:name=".SignInActivity"
             android:label="Sign In"
             android:theme="@style/AppTheme.NoActionBar" />
