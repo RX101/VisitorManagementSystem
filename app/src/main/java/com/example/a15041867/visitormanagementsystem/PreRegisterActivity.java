@@ -2,8 +2,10 @@ package com.example.a15041867.visitormanagementsystem;
 
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.format.DateFormat;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -11,8 +13,12 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by 15039840 on 10/5/2017.
@@ -21,12 +27,15 @@ import java.util.Calendar;
 public class PreRegisterActivity extends AppCompatActivity{
 
     EditText etNRIC, etTextName, etNumber, etEmail, etDate, etTime;
-    Button btnSubmit, btnDate, btnTime;
+    Button btnSubmit;
+    DBHelper db;
+    Calendar myCalendar = Calendar.getInstance();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_preregister);
+
 
         etEmail = (EditText) findViewById(R.id.editTextEmail);
         etNRIC = (EditText) findViewById(R.id.editTextNRIC);
@@ -35,6 +44,58 @@ public class PreRegisterActivity extends AppCompatActivity{
         btnSubmit = (Button) findViewById(R.id.buttonSubmit);
         etDate = (EditText) findViewById(R.id.editTextDate);
         etTime = (EditText) findViewById(R.id.editTextTime);
+        db = new DBHelper(PreRegisterActivity.this);
+
+        final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int monthOfYear,
+                                  int dayOfMonth) {
+                // TODO Auto-generated method stub
+                myCalendar.set(Calendar.YEAR, year);
+                myCalendar.set(Calendar.MONTH, monthOfYear);
+                myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                updateLabel();
+            }
+
+        };
+
+
+        etTime.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                Calendar mcurrentTime = Calendar.getInstance();
+                int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
+                int minute = mcurrentTime.get(Calendar.MINUTE);
+
+                TimePickerDialog mTimePicker;
+                mTimePicker = new TimePickerDialog(PreRegisterActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int selectedHour, int selectedMinute) {
+                        etTime.setText( selectedHour + ":" + selectedMinute);
+                    }
+                }, hour, minute, true);
+                mTimePicker.setTitle("Select Time");
+                mTimePicker.show();
+
+            }
+        });
+        etDate.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                // TODO Auto-generated method stub
+                new DatePickerDialog(PreRegisterActivity.this, date, myCalendar
+                        .get(Calendar.YEAR), myCalendar.get(Calendar.MONTH),
+                        myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
+
+
 
         etDate.setOnClickListener(new View.OnClickListener() {
 
@@ -80,6 +141,36 @@ public class PreRegisterActivity extends AppCompatActivity{
 
             }
         });
+
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String email = etEmail.getText().toString();
+                String NRIC = etNRIC.getText().toString();
+                String name = etTextName.getText().toString();
+                String date = etDate.getText().toString();
+                String time = etTime.getText().toString();
+                Integer number = Integer.valueOf(etNumber.getText().toString());
+                DBHelper db = new DBHelper(PreRegisterActivity.this);
+                db.insertVisitor(NRIC,name,number,email);
+                db.insertVisitInfo(NRIC,date,time);
+
+                Toast.makeText(PreRegisterActivity.this,"Visitor Added Successful",Toast.LENGTH_SHORT).show();
+                db.close();
+                //use finish()
+                finish();
+            }
+        });
+
+
+    }
+
+    private void updateLabel() {
+
+        String myFormat = "MM/dd/yy"; //In which you need put here
+        SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
+
+        etDate.setText(sdf.format(myCalendar.getTime()));
     }
 
 
@@ -93,9 +184,13 @@ public class PreRegisterActivity extends AppCompatActivity{
         int id = item.getItemId();
 
         if (id == R.id.action_cancel) {
-            return true;
+            startActivity(new Intent(PreRegisterActivity.this, CancelPreRegister.class));
+        }
+        else if(id == R.id.action_forgetpassword){
+            startActivity(new Intent(PreRegisterActivity.this, hostForgetPassword.class));
         }
         return false;
     }
+
 
 }

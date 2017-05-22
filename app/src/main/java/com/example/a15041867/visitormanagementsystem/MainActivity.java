@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 //                        session.setLoggedin(true);
                         startActivity(new Intent(MainActivity.this, ManagerActivity.class));
                         Toast.makeText(MainActivity.this,position,Toast.LENGTH_LONG).show();
-                    }else if (position.equals("Security Guard")){
+                    }else if (position.equals("Security Staff")){
 //                        session.setLoggedin(true);
                         startActivity(new Intent(MainActivity.this, RegisterActivity.class));
                         Toast.makeText(MainActivity.this,position,Toast.LENGTH_LONG).show();
