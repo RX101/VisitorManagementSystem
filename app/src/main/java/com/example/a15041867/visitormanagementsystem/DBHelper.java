@@ -69,6 +69,39 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL(createTableSqlVisitInfo);
         db.execSQL(createTableSqlUser);
         Log.i("info" ,"created tables");
+
+        ContentValues values1 = new ContentValues();
+        ContentValues values2 = new ContentValues();
+        ContentValues values3 = new ContentValues();
+        values1.put(USER_COLUMN_User_NRIC, "admin");
+        values1.put(USER_COLUMN_USERNAME, "manager");
+        values1.put(USER_COLUMN_PASSWORD, "manager1234");
+        values1.put(USER_COLUMN_PHONE_NUMBER, 88888888);
+        values1.put(USER_COLUMN_EMAIL, "manager@gmail.com");
+        values1.put(USER_COLUMN_Host_Unit, "No");
+        values1.put(USER_COLUMN_POSITION, "Manager");
+
+        values2.put(USER_COLUMN_User_NRIC, "security");
+        values2.put(USER_COLUMN_USERNAME, "security ");
+        values2.put(USER_COLUMN_PASSWORD, "security1234");
+        values2.put(USER_COLUMN_PHONE_NUMBER, 88888888);
+        values2.put(USER_COLUMN_EMAIL, "security@gmail.com");
+        values2.put(USER_COLUMN_Host_Unit, "No");
+        values2.put(USER_COLUMN_POSITION, "Security Staff");
+
+        values3.put(USER_COLUMN_User_NRIC, "host");
+        values3.put(USER_COLUMN_USERNAME, "host");
+        values3.put(USER_COLUMN_PASSWORD, "host1234");
+        values3.put(USER_COLUMN_PHONE_NUMBER, 12345678);
+        values3.put(USER_COLUMN_EMAIL, "host@gmail.com");
+        values3.put(USER_COLUMN_Host_Unit, "Blk108 #01-23");
+        values3.put(USER_COLUMN_POSITION, "Host");
+        // Insert the row into the TABLE_TASK
+        db.insert(TABLE_USER, null, values1);
+        db.insert(TABLE_USER, null, values2);
+        db.insert(TABLE_USER, null, values3);
+
+        Log.i("info", "dummy records inserted");
     }
 
     @Override
@@ -78,7 +111,6 @@ public class DBHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_VISIT_INFO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         // Create table(s) again
-
         onCreate(db);
     }
 
@@ -178,7 +210,7 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
 
-    public boolean getUser(String NRIC, String password){
+    public boolean checkLoginUser(String NRIC, String password){
         //HashMap<String, String> user = new HashMap<String, String>();
         String selectQuery = "select * from  " + TABLE_USER + " where " +
                 USER_COLUMN_User_NRIC + " = " + "'"+NRIC+"'" + " and " + USER_COLUMN_PASSWORD + " = " + "'"+password+"'";
@@ -197,10 +229,9 @@ public class DBHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean checkUser(){
+    public boolean getAllUser(){
         //HashMap<String, String> user = new HashMap<String, String>();
-        String selectQuery ="select * from  " + TABLE_USER + " where " + USER_COLUMN_POSITION + " = " + null;
-
+        String selectQuery = "select * from  " + TABLE_USER ;
 
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(selectQuery, null);
@@ -215,6 +246,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return false;
     }
+
+//    public boolean checkUser(){
+//        //HashMap<String, String> user = new HashMap<String, String>();
+//        String selectQuery ="select * from  " + TABLE_USER + " where " + USER_COLUMN_POSITION + " = " + null;
+//
+//
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//        // Move to first row
+//        cursor.moveToFirst();
+//        if (cursor.getCount() > 0) {
+//
+////            return true;
+//        }
+//        cursor.close();
+//        db.close();
+//
+//        return false;
+//    }
 
     public String getUserPosition(String NRIC){
         //HashMap<String, String> user = new HashMap<String, String>();
