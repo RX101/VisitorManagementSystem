@@ -7,6 +7,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import java.util.ArrayList;
+
 /**
  * Created by 15041867 on 8/5/2017.
  */
@@ -17,8 +19,9 @@ public class DBHelper extends SQLiteOpenHelper {
     // increment by 1 whenever db schema changes.
     private static final int DATABASE_VER = 1;
     // Filename of the database
-    // Table Visitor
+    // Table com.example.a15041867.visitormanagementsystem.Visitor
     private static final String DATABASE_NAME = "VisitorInfoManagement.db";
+
     private static final String TABLE_VISITOR = "Visitor";
     private static final String VISITOR_COLUMN_NRIC = "Visitor_NRIC";
     private static final String VISITOR_COLUMN_HOST_NRIC = "Host_NRIC";
@@ -147,6 +150,32 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
     }
 
+    public ArrayList<Visitor> getAllVisitors() {
+        //TODO return records in Java objects
+        ArrayList<Visitor> tasks = new ArrayList<Visitor>();
+        String selectQuery = "SELECT " + VISITOR_COLUMN_NRIC + ", "
+                + VISITOR_COLUMN_NAME + ", "
+                + VISITOR_COLUMN_PHONE_NUMBER + ", "
+                + VISITOR_COLUMN_EMAIL
+                + " FROM " + TABLE_VISITOR;
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.moveToFirst()) {
+            do {
+                String nric = cursor.getString(0);
+                String name = cursor.getString(1);
+                String phone_number = cursor.getString(2);
+                String email = cursor.getString(3);
+                Visitor obj = new Visitor(nric, name, phone_number, email);
+                tasks.add(obj);
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        db.close();
+        return tasks;
+    }
 
 
     public boolean getUser(String NRIC, String password){

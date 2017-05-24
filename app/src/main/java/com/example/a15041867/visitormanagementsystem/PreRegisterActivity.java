@@ -155,7 +155,7 @@ public class PreRegisterActivity extends AppCompatActivity{
                 db.insertVisitor(NRIC,name,number,email);
                 db.insertVisitInfo(NRIC,date,time);
 
-                Toast.makeText(PreRegisterActivity.this,"Visitor Added Successful",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PreRegisterActivity.this,"com.example.a15041867.visitormanagementsystem.Visitor Added Successful",Toast.LENGTH_SHORT).show();
                 db.close();
                 //use finish()
                 finish();
