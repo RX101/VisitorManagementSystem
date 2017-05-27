@@ -20,8 +20,8 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final int DATABASE_VER = 1;
     // Filename of the database
     // Table com.example.a15041867.visitormanagementsystem.Visitor
-    private static final String DATABASE_NAME = "VisitorInfoManagement.db";
 
+    private static final String DATABASE_NAME = "VisitorInfoManagement.db";
     private static final String TABLE_VISITOR = "Visitor";
     private static final String VISITOR_COLUMN_NRIC = "Visitor_NRIC";
     private static final String VISITOR_COLUMN_HOST_NRIC = "Host_NRIC";
@@ -242,6 +242,19 @@ public class DBHelper extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return position;
+    }
+
+    public int deleteVisitor(int id){
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //WHERE id=1 ** THIS IS AN EXAMPPLE **
+        // ^ IT IS WHAT IT IS IN DATABASE
+        String condition = VISITOR_COLUMN_NRIC + "= ?";
+        String[] args = {String.valueOf(id)};
+        //UNTIL HERE
+        int result = db.delete(TABLE_VISITOR, condition, args);
+        db.close();
+        return result;
     }
 
 }

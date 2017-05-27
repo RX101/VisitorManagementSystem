@@ -32,4 +32,10 @@ public class Visitor {
     public String getVisitor_email(){
         return visitor_email;
     }
+
+    public String toString(){
+        return
+                visitor_name + '\n' + visitor_nric;
+
+    }
 }

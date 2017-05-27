@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
             db.insertUser("host","host","host1234",88888887,"host@gmil.com","#08-110","Host");
             db.insertUser("security","security","security1234",88888886,"security@gmil.com","NO","Security Staff");
         }
-
         //        if(session.loggedin()){
 //            startActivity(new Intent(MainActivity.this,SecondActivity.class));
 //            finish();
