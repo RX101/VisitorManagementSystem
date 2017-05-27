@@ -26,11 +26,8 @@ public class MainActivity extends AppCompatActivity {
         session = new Session(this);
         db = new DBHelper(MainActivity.this);
 
-        if(db.checkUser() != true){
-            db.insertUser("admin","manager","manager1234",88888888,"manager@gmil.com","NO","Manager");
-            db.insertUser("host","host","host1234",88888887,"host@gmil.com","#08-110","Host");
-            db.insertUser("security","security","security1234",88888886,"security@gmil.com","NO","Security Staff");
-        }
+        db.getAllUser();
+
         //        if(session.loggedin()){
 //            startActivity(new Intent(MainActivity.this,SecondActivity.class));
 //            finish();
@@ -43,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 String loginNRIC = etLoginNRIC.getText().toString();
                 String loginPassword = etLoginPassword.getText().toString();
-                if(db.getUser(loginNRIC,loginPassword)){
+                if(db.checkLoginUser(loginNRIC,loginPassword)){
                     String position = db.getUserPosition(loginNRIC);
                     if(position.equals("Host")) {
 //                        session.setLoggedin(true);
