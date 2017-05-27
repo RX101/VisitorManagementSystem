@@ -33,6 +33,8 @@ public class Visitor {
         return visitor_email;
     }
 
+
+    //To display in list view
     public String toString(){
         return
                 visitor_name + '\n' + visitor_nric;

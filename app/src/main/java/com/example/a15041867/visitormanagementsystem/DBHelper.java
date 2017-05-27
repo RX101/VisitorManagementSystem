@@ -296,9 +296,6 @@ public class DBHelper extends SQLiteOpenHelper {
 
     public int deleteVisitor(int id){
         SQLiteDatabase db = this.getWritableDatabase();
-
-        //WHERE id=1 ** THIS IS AN EXAMPPLE **
-        // ^ IT IS WHAT IT IS IN DATABASE
         String condition = VISITOR_COLUMN_NRIC + "= ?";
         String[] args = {String.valueOf(id)};
         //UNTIL HERE

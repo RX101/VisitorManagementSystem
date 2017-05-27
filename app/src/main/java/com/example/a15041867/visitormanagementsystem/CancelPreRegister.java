@@ -50,7 +50,7 @@ public class CancelPreRegister extends AppCompatActivity {
                     public void onClick(DialogInterface dialog, int id) {
                         alVisitor.remove(alVisitor.get(position));
                         aa.notifyDataSetChanged();
-                        
+
                         Toast.makeText(CancelPreRegister.this,"Visitor Deleted",Toast.LENGTH_SHORT).show();
 
                     }
