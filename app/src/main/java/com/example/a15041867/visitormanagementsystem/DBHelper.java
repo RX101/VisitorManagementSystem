@@ -6,11 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
-import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by 15041867 on 8/5/2017.
@@ -24,8 +21,10 @@ public class DBHelper extends SQLiteOpenHelper {
     // Filename of the database
     // Table com.example.a15041867.visitormanagementsystem.Visitor
     private static final String DATABASE_NAME = "VisitorInfoManagement.db";
+
     private static final String TABLE_VISITOR = "Visitor";
     private static final String VISITOR_COLUMN_NRIC = "Visitor_NRIC";
+    private static final String VISITOR_COLUMN_HOST_NRIC = "Host_NRIC";
     private static final String VISITOR_COLUMN_NAME = "Name";
     private static final String VISITOR_COLUMN_PHONE_NUMBER = "Phone_Number";
     private static final String VISITOR_COLUMN_EMAIL = "Email";
@@ -34,11 +33,9 @@ public class DBHelper extends SQLiteOpenHelper {
     private static final String TABLE_VISIT_INFO = "Visit_Info";
     private static final String VISIT_INFO_COLUMN_ID = "ID";
     private static final String VISIT_INFO_COLUMN_VISITOR_NRIC = "Visitor_NRIC";
-    private static final String VISIT_INFO_COLUMN_HOST_NRIC = "Host_NRIC";
     private static final String VISIT_INFO_COLUMN_TIME_IN = "Time_In";
     private static final String VISIT_INFO_COLUMN_DATE_IN = "Date_In";
-    private static final String VISIT_INFO_COLUMN_TIME_OUT = "Time_Out";
-    private static final String VISIT_INFO_COLUMN_DATE_OUT = "Date_Out";
+    private static final String VISIT_INFO_COLUMN_DATETIME_OUT = "Datetime_Out";
 
     //Table User
     private static final String TABLE_USER = "User";
@@ -58,13 +55,12 @@ public class DBHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         String createTableSqlVisitor= "CREATE TABLE " + TABLE_VISITOR +  "("
-                + VISITOR_COLUMN_NRIC + " TEXT,"
+                + VISITOR_COLUMN_NRIC + " TEXT," + VISITOR_COLUMN_HOST_NRIC + " TEXT,"
                 + VISITOR_COLUMN_NAME + " TEXT," + VISITOR_COLUMN_PHONE_NUMBER + " INTEGER," + VISITOR_COLUMN_EMAIL + " TEXT)";
 
         String createTableSqlVisitInfo = "CREATE TABLE " + TABLE_VISIT_INFO +  "("
                 + VISIT_INFO_COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," + VISIT_INFO_COLUMN_VISITOR_NRIC + " TEXT,"
-                + VISIT_INFO_COLUMN_HOST_NRIC + " TEXT,"
-                + VISIT_INFO_COLUMN_DATE_IN + " DATE," + VISIT_INFO_COLUMN_TIME_IN + " TIME," + VISIT_INFO_COLUMN_DATE_OUT + " DATE," + VISIT_INFO_COLUMN_TIME_OUT + " TIME)";
+                + VISIT_INFO_COLUMN_DATE_IN + " DATE," + VISIT_INFO_COLUMN_TIME_IN + " TIME," + VISIT_INFO_COLUMN_DATETIME_OUT + " DATETIME)";
 
         String createTableSqlUser = "CREATE TABLE " + TABLE_USER +  "("
                 + USER_COLUMN_User_NRIC + " TEXT," + USER_COLUMN_USERNAME + " TEXT," + USER_COLUMN_PASSWORD + " TEXT,"
@@ -105,7 +101,7 @@ public class DBHelper extends SQLiteOpenHelper {
         db.insert(TABLE_USER, null, values2);
         db.insert(TABLE_USER, null, values3);
 
-        Log.i("info", "Hard Code records inserted");
+        Log.i("info", "dummy records inserted");
     }
 
     @Override
@@ -118,7 +114,7 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
-    public boolean insertUser(String userNRIC, String userName,String password, int userPhoneNumber, String userEmail,String userUnitNo, String userPosition) {
+    public void insertUser(String userNRIC, String userName,String password, int userPhoneNumber, String userEmail,String userUnitNo, String userPosition) {
         //TODO insert the data into the database
         // Get an instance of the database for writing
         SQLiteDatabase db = this.getWritableDatabase();
@@ -133,17 +129,29 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(USER_COLUMN_Host_Unit, userUnitNo);
         values.put(USER_COLUMN_POSITION, userPosition);
         // Insert the row into the TABLE_TASK
-        long rowInserted = db.insert(TABLE_USER, null, values);
+        db.insert(TABLE_USER, null, values);
         // Close the database connection
         db.close();
-        if(rowInserted != -1) {
-            return false;
-        }
-            return  true;
     }
 
+    public void insertRegisterVisitor(String registerNRIC, String registerName, int registerHP, String registerEmail) {
+        //TODO insert the data into the database
+        // Get an instance of the database for writing
+        SQLiteDatabase db = this.getWritableDatabase();
+        // We use ContentValues object to store the values for
+        //  the db operation
+        ContentValues values = new ContentValues();
+        values.put(VISITOR_COLUMN_NRIC, registerNRIC);
+        values.put(VISITOR_COLUMN_NAME, registerName);
+        values.put(VISITOR_COLUMN_PHONE_NUMBER, registerHP);
+        values.put(VISITOR_COLUMN_EMAIL, registerEmail);
+        // Insert the row into the TABLE_TASK
+        db.insert(TABLE_USER, null, values);
+        // Close the database connection
+        db.close();
+    }
 
-    public boolean insertVisitor(String visitorNRIC, String visitorNAME,int visitorNUMBER,String visitorEMAIL) {
+    public void insertVisitor(String visitorNRIC, String visitorNAME,int visitorNUMBER,String visitorEMAIL) {
         //TODO insert the data into the database
         // Get an instance of the database for writing
         SQLiteDatabase db = this.getWritableDatabase();
@@ -154,19 +162,12 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(VISITOR_COLUMN_NAME, visitorNAME);
         values.put(VISITOR_COLUMN_PHONE_NUMBER, visitorNUMBER);
         values.put(VISITOR_COLUMN_EMAIL, visitorEMAIL);
-
         // Insert the row into the TABLE_TASK
-        long rowInserted = db.insert(TABLE_VISITOR, null, values);
+        db.insert(TABLE_VISITOR, null, values);
         // Close the database connection
         db.close();
-        if(rowInserted != -1) {
-            return false;
-        }
-        return  true;
-
     }
-
-    public boolean insertVisitInfo(String visitorNRIC, String datein, String timein, String hostNRIC){
+    public void insertVisitInfo(String visitorNRIC, String datein, String timein){
         // Get an instance of the database for writing
         SQLiteDatabase db = this.getWritableDatabase();
         // We use ContentValues object to store the values for
@@ -175,16 +176,10 @@ public class DBHelper extends SQLiteOpenHelper {
         values.put(VISIT_INFO_COLUMN_VISITOR_NRIC, visitorNRIC);
         values.put(VISIT_INFO_COLUMN_DATE_IN, datein);
         values.put(VISIT_INFO_COLUMN_TIME_IN, timein);
-        values.put(VISIT_INFO_COLUMN_HOST_NRIC, hostNRIC);
         // Insert the row into the TABLE_TASK
-        long rowInserted = db.insert(TABLE_VISIT_INFO, null, values);
+        db.insert(TABLE_VISIT_INFO, null, values);
         // Close the database connection
         db.close();
-
-        if(rowInserted != -1) {
-            return false;
-        }
-        return  true;
     }
 
     public ArrayList<Visitor> getAllVisitors() {
@@ -234,41 +229,6 @@ public class DBHelper extends SQLiteOpenHelper {
         return false;
     }
 
-    public boolean checkVisitUnit(String visitUnit){
-        //HashMap<String, String> user = new HashMap<String, String>();
-        String selectQuery = "select " + USER_COLUMN_User_NRIC +" from  " + TABLE_USER + " where " +
-                USER_COLUMN_Host_Unit + " = " + "'"+visitUnit+"'" ;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        // Move to first row
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
-            return true;
-        }
-        cursor.close();
-        db.close();
-        return false;
-    }
-
-    public String getHostNRIC(String visitUnit){
-        //HashMap<String, String> user = new HashMap<String, String>();
-        String selectQuery = "select " + USER_COLUMN_User_NRIC +" from  " + TABLE_USER + " where " +
-                USER_COLUMN_Host_Unit + " = " + "'" +visitUnit+ "'" ;
-
-        SQLiteDatabase db = this.getReadableDatabase();
-        Cursor cursor = db.rawQuery(selectQuery, null);
-        String nric = "";
-        // Move to first row
-        cursor.moveToFirst();
-        if (cursor.getCount() > 0) {
-            nric = cursor.getString(0);
-        }
-        cursor.close();
-        db.close();
-        return nric;
-    }
-
     public boolean getAllUser(){
         //HashMap<String, String> user = new HashMap<String, String>();
         String selectQuery = "select * from  " + TABLE_USER ;
@@ -286,6 +246,25 @@ public class DBHelper extends SQLiteOpenHelper {
 
         return false;
     }
+
+//    public boolean checkUser(){
+//        //HashMap<String, String> user = new HashMap<String, String>();
+//        String selectQuery ="select * from  " + TABLE_USER + " where " + USER_COLUMN_POSITION + " = " + null;
+//
+//
+//        SQLiteDatabase db = this.getReadableDatabase();
+//        Cursor cursor = db.rawQuery(selectQuery, null);
+//        // Move to first row
+//        cursor.moveToFirst();
+//        if (cursor.getCount() > 0) {
+//
+////            return true;
+//        }
+//        cursor.close();
+//        db.close();
+//
+//        return false;
+//    }
 
     public String getUserPosition(String NRIC){
         //HashMap<String, String> user = new HashMap<String, String>();
@@ -314,16 +293,5 @@ public class DBHelper extends SQLiteOpenHelper {
         db.close();
         return position;
     }
-
-//    public void updateVisitorTable(String hostNRIC, String visitorNRIC){
-//        SQLiteDatabase db = this.getWritableDatabase();
-//        ContentValues values = new ContentValues();
-//        values.put(VISITOR_COLUMN_HOST_NRIC, hostNRIC);
-//        String condition = VISITOR_COLUMN_NRIC + "= ?";
-//        String[] args = {String.valueOf(visitorNRIC)};
-//        int result = db.update(TABLE_VISITOR, values, condition, args);
-//        db.close();
-//
-//    }
 
 }
