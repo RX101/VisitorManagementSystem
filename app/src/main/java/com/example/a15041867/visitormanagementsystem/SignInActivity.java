@@ -1,11 +1,15 @@
 package com.example.a15041867.visitormanagementsystem;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +23,7 @@ public class SignInActivity extends AppCompatActivity {
     TextView tvRegister;
     Button btnSignIn;
     DBHelper db;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +31,11 @@ public class SignInActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_in);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+     session = new Session(this);
+//        if(!session.loggedin()){
+//            logout();
+//        }
 
         etSignInNRIC = (EditText)findViewById(R.id.editTextSignInNRIC);
         etSignInVisitUnit = (EditText)findViewById(R.id.editTextSignInVisitUnit);
@@ -63,9 +73,16 @@ public class SignInActivity extends AppCompatActivity {
                 }else{
                     if(db.checkVisitUnit(signInVisitUnit) == true){
                         String hostNRIC = db.getHostNRIC(signInVisitUnit);
-//                    db.updateVisitorTable(hostNRIC,signInNRIC);
                         if(db.insertVisitInfo(signInNRIC,date,time,hostNRIC)){
-                            Toast.makeText(SignInActivity.this,"User Added Successful",Toast.LENGTH_SHORT).show();
+                            //Create the Dialog Builder
+                            AlertDialog.Builder myBuilder = new AlertDialog.Builder(SignInActivity.this);
+                            //Set the dialog details
+                            myBuilder.setTitle("Sign In Message");
+                            myBuilder.setMessage("Visitor have been sign in sucessfully");
+                            myBuilder.setPositiveButton("OK", null);
+                            //Create and display the Dialog
+                            AlertDialog myDialog = myBuilder.create();
+                            myDialog.show();
                         }else{
                             Toast.makeText(SignInActivity.this,"User Added failed",Toast.LENGTH_SHORT).show();
                         }
@@ -86,6 +103,29 @@ public class SignInActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_signin, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.action_sign_out) {
+            startActivity(new Intent(SignInActivity.this, SignOutActivity.class));
+        }
+        else if(id == R.id.action_signin_logout){
+            logout();
+        }
+        return false;
+    }
+    private void logout(){
+        session.setLoggedin(false);
+        finish();
+        startActivity(new Intent(SignInActivity.this,MainActivity.class));
     }
 
 }

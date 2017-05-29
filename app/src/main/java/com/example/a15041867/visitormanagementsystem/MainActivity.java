@@ -13,8 +13,10 @@ public class MainActivity extends AppCompatActivity {
 
     Button btnLogin;
     EditText etLoginNRIC, etLoginPassword;
-    private Session session;
     DBHelper db;
+    private Session session;
+    Intent i;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,17 +25,8 @@ public class MainActivity extends AppCompatActivity {
         btnLogin =(Button)findViewById(R.id.buttonLogin);
         etLoginNRIC = (EditText)findViewById(R.id.editTextloginNRIC);
         etLoginPassword = (EditText)findViewById(R.id.editTextloginPassword);
-        session = new Session(this);
+//        session = new Session(this);
         db = new DBHelper(MainActivity.this);
-
-
-
-        //        if(session.loggedin()){
-//            startActivity(new Intent(MainActivity.this,SecondActivity.class));
-//            finish();
-//        }
-
-
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,24 +34,25 @@ public class MainActivity extends AppCompatActivity {
                 String loginNRIC = etLoginNRIC.getText().toString();
                 String loginPassword = etLoginPassword.getText().toString();
 
-
                 if(db.checkLoginUser(loginNRIC,loginPassword)){
-                    String position = db.getUserPosition(loginNRIC);
-                    if(position.equals("Host")) {
-//                        session.setLoggedin(true);
-                        startActivity(new Intent(MainActivity.this, PreRegisterActivity.class));
-                        Toast.makeText(MainActivity.this,position,Toast.LENGTH_LONG).show();
-                    }else if (position.equals("Manager")){
-//                        session.setLoggedin(true);
-                        startActivity(new Intent(MainActivity.this, ManagerActivity.class));
-                        Toast.makeText(MainActivity.this,position,Toast.LENGTH_LONG).show();
-                    }else if (position.equals("Security Staff")){
-//                        session.setLoggedin(true);
-                        startActivity(new Intent(MainActivity.this, SignInActivity.class));
-                        Toast.makeText(MainActivity.this,position,Toast.LENGTH_LONG).show();
-                    } else{
-                        Toast.makeText(MainActivity.this,"Error",Toast.LENGTH_LONG).show();
-                    }
+
+                        String position = db.getUserPosition(loginNRIC);
+                        if (position.equals("Host")) {
+                            i = new Intent(MainActivity.this, PreRegisterActivity.class);
+                            startActivity(i);
+//                            session.setLoggedin(true);
+                        } else if (position.equals("Manager")) {
+                            i = new Intent(MainActivity.this, ManagerActivity.class);
+                            startActivity(i);
+//                            session.setLoggedin(true);
+                        } else if (position.equals("Security Staff")) {
+                            i = new Intent(MainActivity.this, SignInActivity.class);
+                            startActivity(i);
+//                            session.setLoggedin(true);
+                        } else {
+                            Toast.makeText(MainActivity.this, "Error", Toast.LENGTH_LONG).show();
+                        }
+
                 }else if(loginNRIC.isEmpty()){
                     etLoginNRIC.setError("NRIC field is empty");
                 }
@@ -71,9 +65,16 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Wrong email/password",Toast.LENGTH_SHORT).show();
                 }
 
+//               if(session.loggedin()) {
+//                    startActivity(i);
+//                    finish();
+//
+//                }
+
             }
         });
     db.close();
 
     }
+
 }

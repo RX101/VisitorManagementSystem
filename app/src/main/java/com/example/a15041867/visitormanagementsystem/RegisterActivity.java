@@ -7,6 +7,8 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,6 +21,7 @@ public class RegisterActivity extends AppCompatActivity {
     EditText etRegisterName, etRegisterNRIC, etRegisterHP, etRegisterEmail;
     Button btnRegister;
     DBHelper db;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,11 @@ public class RegisterActivity extends AppCompatActivity {
         etRegisterName = (EditText)findViewById(R.id.editTextRegisterName);
         btnRegister = (Button)findViewById(R.id.buttonRegister);
         db = new DBHelper(RegisterActivity.this);
+
+        session = new Session(this);
+//        if(!session.loggedin()){
+//            logout();
+//        }
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,7 +80,6 @@ public class RegisterActivity extends AppCompatActivity {
                             db.close();
                             finish();
 
-                            Toast.makeText(getBaseContext(), "Visitor info is added sucessfully", Toast.LENGTH_SHORT).show();
                         }
                     });
                     myBuilder.setNeutralButton("Cancel", null);
@@ -86,5 +93,25 @@ public class RegisterActivity extends AppCompatActivity {
         });
 
 
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_register, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.action_register_logout) {
+            logout();
+        }
+        return false;
+    }
+    private void logout(){
+        session.setLoggedin(false);
+        finish();
+        startActivity(new Intent(RegisterActivity.this,MainActivity.class));
     }
 }

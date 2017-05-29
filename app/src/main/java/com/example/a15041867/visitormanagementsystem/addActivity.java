@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,6 +19,7 @@ public class addActivity extends AppCompatActivity {
     EditText etUserNRIC, etUserName, etUserEmail, etUserPhoneNumber, etUserUnitNo;
     Button btnAddUser;
     DBHelper db;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,11 @@ public class addActivity extends AppCompatActivity {
         etUserUnitNo = (EditText)findViewById(R.id.editTextUserUnitNo);
         btnAddUser = (Button)findViewById(R.id.buttonAddUser);
         db = new DBHelper(addActivity.this);
+
+        session = new Session(this);
+//        if(!session.loggedin()){
+//            logout();
+//        }
 
         btnAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -95,4 +103,25 @@ public class addActivity extends AppCompatActivity {
             }
         });
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_adduser, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.action_adduser_logout) {
+            logout();
+        }
+        return false;
+    }
+    private void logout(){
+        session.setLoggedin(false);
+        finish();
+        startActivity(new Intent(addActivity.this,MainActivity.class));
+    }
+
 }

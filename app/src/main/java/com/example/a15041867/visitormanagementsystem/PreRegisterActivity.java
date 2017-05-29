@@ -158,7 +158,7 @@ public class PreRegisterActivity extends AppCompatActivity{
                     Toast.makeText(PreRegisterActivity.this,"User Added failed",Toast.LENGTH_SHORT).show();
                 }
 
-                Toast.makeText(PreRegisterActivity.this,"com.example.a15041867.visitormanagementsystem.Visitor Added Successful",Toast.LENGTH_SHORT).show();
+                Toast.makeText(PreRegisterActivity.this,"Visitor Added Successful",Toast.LENGTH_SHORT).show();
                 db.close();
                 //use finish()
                 finish();
