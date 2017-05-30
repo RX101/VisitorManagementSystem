@@ -3,6 +3,9 @@ package com.example.a15041867.visitormanagementsystem;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Patterns;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -15,6 +18,8 @@ import java.util.Random;
 public class addActivity extends AppCompatActivity {
     EditText etUserNRIC, etUserName, etUserEmail, etUserPhoneNumber, etUserUnitNo;
     Button btnAddUser;
+    DBHelper db;
+    private Session session;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +32,12 @@ public class addActivity extends AppCompatActivity {
         etUserPhoneNumber = (EditText)findViewById(R.id.editTextUserPN);
         etUserUnitNo = (EditText)findViewById(R.id.editTextUserUnitNo);
         btnAddUser = (Button)findViewById(R.id.buttonAddUser);
+        db = new DBHelper(addActivity.this);
+
+        session = new Session(this);
+//        if(!session.loggedin()){
+//            logout();
+//        }
 
         btnAddUser.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -34,7 +45,6 @@ public class addActivity extends AppCompatActivity {
                 String userNRIC = etUserNRIC.getText().toString();
                 String userName = etUserName.getText().toString();
                 String strUserPhoneNumber = etUserPhoneNumber.getText().toString();
-                int registerPhoneNumber = Integer.parseInt(strUserPhoneNumber);
                 String userEmail = etUserEmail.getText().toString();
                 String userUnitNo = etUserUnitNo.getText().toString();
                 // Get the RadioGroup object
@@ -55,17 +65,63 @@ public class addActivity extends AppCompatActivity {
                     sb.append(c);
                 }
                 String password = sb.toString();
+                if(userNRIC.isEmpty()){
+                    etUserNRIC.setError("Please fill up NRIC field.");
+
+                }else if(userNRIC.length() != 9){
+                    etUserNRIC.setError("Invalid, Please try again");
+                }else if(userName.isEmpty()){
+                    etUserName.setError("Please fill up Name field.");
+                }else if(strUserPhoneNumber.isEmpty()) {
+                    etUserPhoneNumber.setError("Please fill up Phone Number field.");
+                }else if(strUserPhoneNumber.length() != 8 ){
+                    etUserPhoneNumber.setError("Invalid Phone Number, please try again.");
+                }else if(userEmail.isEmpty()){
+                        etUserEmail.setError("Please fill up Email field.");
+                }else if(!Patterns.EMAIL_ADDRESS.matcher(userEmail).matches()){
+                    etUserEmail.setError("Invalid Email, Please try again.");
+                }else if(userUnitNo.isEmpty()){
+                    etUserUnitNo.setError("Please fill up Unit No.");
+                }else {
+                    int registerPhoneNumber = Integer.parseInt(strUserPhoneNumber);
+                    if(db.insertUser(userNRIC,userName,password,registerPhoneNumber,userEmail,userUnitNo,selectedPosition)){
+                        Toast.makeText(addActivity.this,"User Added Successful",Toast.LENGTH_SHORT).show();
+                    }else{
+                        Toast.makeText(addActivity.this,"User Added failed",Toast.LENGTH_SHORT).show();
+                    }
+                    db.close();
+
+                    //use finish()
+                    finish();
+                    //use onResume()
+                }
 
                     // Create the DBHelper object, passing in the
                 // activity's Context
-                DBHelper db = new DBHelper(addActivity.this);
-                db.insertUser(userNRIC,userName,password,registerPhoneNumber,userEmail,userUnitNo,selectedPosition);
-                db.close();
-                Toast.makeText(addActivity.this,"User Added Successful",Toast.LENGTH_SHORT).show();
-                //use finish()
-                finish();
-                //use onResume()
+
+
             }
         });
     }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.menu_adduser, menu);
+        return true;
+    }
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here.
+        int id = item.getItemId();
+
+        if (id == R.id.action_adduser_logout) {
+            logout();
+        }
+        return false;
+    }
+    private void logout(){
+        session.setLoggedin(false);
+        finish();
+        startActivity(new Intent(addActivity.this,MainActivity.class));
+    }
+
 }

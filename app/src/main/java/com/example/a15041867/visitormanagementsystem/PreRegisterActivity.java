@@ -46,7 +46,6 @@ public class PreRegisterActivity extends AppCompatActivity{
         etTime = (EditText) findViewById(R.id.editTextTime);
         db = new DBHelper(PreRegisterActivity.this);
 
-
         final DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
             @Override
@@ -153,8 +152,12 @@ public class PreRegisterActivity extends AppCompatActivity{
                 String time = etTime.getText().toString();
                 Integer number = Integer.valueOf(etNumber.getText().toString());
                 DBHelper db = new DBHelper(PreRegisterActivity.this);
-                db.insertVisitor(NRIC,name,number,email);
-                db.insertVisitInfo(NRIC,date,time);
+                if(db.insertVisitor(NRIC,name,number,email) && db.insertVisitInfo(NRIC,date,time,"User NRIC")){
+                    Toast.makeText(PreRegisterActivity.this,"User Added Successful",Toast.LENGTH_SHORT).show();
+                }else{
+                    Toast.makeText(PreRegisterActivity.this,"User Added failed",Toast.LENGTH_SHORT).show();
+                }
+
                 Toast.makeText(PreRegisterActivity.this,"Visitor Added Successful",Toast.LENGTH_SHORT).show();
                 db.close();
                 //use finish()
@@ -191,8 +194,6 @@ public class PreRegisterActivity extends AppCompatActivity{
         }
         return false;
     }
-
-    //    no need click on Retrieve button, the data will refreshh!
 
 
 }
