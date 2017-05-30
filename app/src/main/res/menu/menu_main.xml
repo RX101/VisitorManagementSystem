@@ -10,6 +10,6 @@
         android:id="@+id/action_forgetpassword"
         android:orderInCategory="100"
         android:text="@string/forget_password"
-        android:title="Forget Password"/>
+        android:title="Change Password"/>
 
 </menu>

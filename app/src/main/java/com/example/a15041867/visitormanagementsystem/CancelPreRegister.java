@@ -45,7 +45,7 @@ public class CancelPreRegister extends AppCompatActivity {
                         CancelPreRegister.this);
                 alertdialog.setTitle("Selected Visitor");
                 alertdialog.setMessage(""+parent.getItemAtPosition(position));
-                alertdialog.setPositiveButton("Ok", null);
+                alertdialog.setPositiveButton("Cancel", null);
                 alertdialog.setNegativeButton("Delete", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         alVisitor.remove(alVisitor.get(position));
